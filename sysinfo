@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# A script to call sysinfo script as executable:
+#
+# http://github.com/peterbay/sysinfo
+
+# Exit on error
+set -e
+
+# Define script globals
+SCRIPT_PARENT="$(dirname $(readlink -f ${0}))"
+
+# sysinfo script
+SYSINFO_SCRIPT="sysinfo.py"
+SYSINFO="${SCRIPT_PARENT}/${SYSINFO_SCRIPT}"
+
+# Use python3 as default interpreter or python2 otherwise
+#
+# '|| true' means return exit code 0 on error to not interrupt script
+PYTHON3=$(type -p python3 || true)
+PYTHON2=$(type -p python3 || true)
+
+# Check if python interpreter is found correctly
+if [ ! -z "${PYTHON3}" ] && [ -x "${PYTHON3}" ]; then
+    PYTHON="${PYTHON3}"
+else
+    if [ ! -z "${PYTHON2}" ] && [ -x "${PYTHON2}" ]; then
+        PYTHON="${PYTHON2}"
+    else
+        "Error: No python interpreter found"
+        exit 1
+    fi
+fi
+
+# Execute sysinfo script
+#
+# '${@}' means 'parameters passed to the script'
+${PYTHON} "${SYSINFO}" "${@}"
