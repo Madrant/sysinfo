@@ -55,6 +55,11 @@ install(
     FILES_MATCHING PATTERN "*.py"
 )
 
+set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA
+    "${CMAKE_SOURCE_DIR}/postinst"
+    "${CMAKE_SOURCE_DIR}/postrm"
+)
+
 # Packaging (make package, make package_source)
 set(CPACK_GENERATOR "DEB")
 

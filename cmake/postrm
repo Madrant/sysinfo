@@ -1,0 +1,10 @@
+#!/bin/sh
+
+SCRIPT_PATH="/usr/local/peterbay-sysinfo/sysinfo"
+LINK_PATH="/usr/local/bin/sysinfo"
+
+# Check if the link exists and remove it
+if [ -L "${LINK_PATH}" ]; then
+    echo "Removing symbolic link for sysinfo script: '${LINK_PATH}'"
+    rm -f "${LINK_PATH}"
+fi

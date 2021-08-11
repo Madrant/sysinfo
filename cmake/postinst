@@ -1,0 +1,14 @@
+#!/bin/sh
+
+SCRIPT_PATH="/usr/local/peterbay-sysinfo/sysinfo"
+LINK_PATH="/usr/local/bin/sysinfo"
+
+# Check if the link already exists
+if [ -f "${LINK_PATH}" ] && [ -L "${LINK_PATH}" ]; then
+    echo "Cannot create symbolic link: '${LINK_PATH}': File elready exists"
+    exit 0
+fi
+
+# Create symbolic link
+echo "Creating symbolic link for sysinfo script"
+ln -s "${SCRIPT_PATH}" "${LINK_PATH}"
